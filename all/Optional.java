@@ -55,20 +55,67 @@ public class Optional{
 
 
         public  void setXValue(int posX , int posY){
+
             int varPosX;
             int varPosY;
-            varPosX = posX;
-            varPosY = posY;
-            field[varPosX][varPosY] = "X";
-            printField();
+            try {
+
+
+            varPosX = posX-1;
+            varPosY = posY-1;
+            if (field[varPosX][varPosY].equals("X") || field[varPosX][varPosY].equals("O")){
+                System.out.println("try other field");
+                getValue(new XThread());
+
             }
+            else {
+                field[varPosX][varPosY] = "X";
+                if (checkXvinner()){
+                    System.out.println("X winner!");
+                    Optional.printField();
+                    System.exit(0);
+                }
+                else if (checkDraw()) {
+                    System.out.println("Draw :)");
+                    Optional.printField();
+                    System.exit(0);
+                }
+                printField();
+            }
+            }catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Out of bounds on field");
+                getValue(new XThread());
+            }
+        }
         public  void setOValue(int posX , int posY){
             int varPosX;
             int varPosY;
-            varPosX = posX;
-            varPosY = posY;
-            field[varPosX][varPosY] = "O";
-            printField();
+            varPosX = posX-1;
+            varPosY = posY-1;
+            try {
+
+
+            if (field[varPosX][varPosY].equals("X") || field[varPosX][varPosY].equals("O")){
+                System.out.println("try other field");
+                getValue(new OThread());
+            }
+            else {
+                if (checkOVinner()){
+                    System.out.println("O winner!");
+                    Optional.printField();
+                    System.exit(0);
+                } else if (checkDraw()) {
+                    System.out.println("Draw :)");
+                    Optional.printField();
+                    System.exit(0);
+                }
+                field[varPosX][varPosY] = "O";
+                printField();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Out of bounds on field");
+                getValue(new OThread());
+            }
         }
 
 
